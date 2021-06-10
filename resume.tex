@@ -1,0 +1,508 @@
+%============================================================================%
+%
+%	DOCUMENT DEFINITION
+%
+%============================================================================%
+
+%we use article class because we want to fully customize the page and don't use a cv template
+\documentclass[10pt,A4]{article}	
+
+
+%----------------------------------------------------------------------------------------
+%	ENCODING
+%----------------------------------------------------------------------------------------
+
+% we use utf8 since we want to build from any machine
+\usepackage[utf8]{inputenc}		
+
+%----------------------------------------------------------------------------------------
+%	LOGIC
+%----------------------------------------------------------------------------------------
+
+% provides \isempty test
+\usepackage{xstring, xifthen}
+
+%----------------------------------------------------------------------------------------
+%	FONT BASICS
+%----------------------------------------------------------------------------------------
+
+% some tex-live fonts - choose your own
+
+%\usepackage[defaultsans]{droidsans}
+%\usepackage[default]{comfortaa}
+%\usepackage{cmbright}
+\usepackage[default]{raleway}
+%\usepackage{fetamont}
+%\usepackage[default]{gillius}
+%\usepackage[light,math]{iwona}
+%\usepackage[thin]{roboto} 
+
+% set font default
+\renewcommand*\familydefault{\sfdefault} 	
+\usepackage[T1]{fontenc}
+
+% more font size definitions
+\usepackage{moresize}
+
+%----------------------------------------------------------------------------------------
+%	FONT AWESOME ICONS
+%---------------------------------------------------------------------------------------- 
+
+% include the fontawesome icon set
+\usepackage{fontawesome}
+
+% use to vertically center content
+% credits to: http://tex.stackexchange.com/questions/7219/how-to-vertically-center-two-images-next-to-each-other
+\newcommand{\vcenteredinclude}[1]{\begingroup
+\setbox0=\hbox{\includegraphics{#1}}%
+\parbox{\wd0}{\box0}\endgroup}
+
+% use to vertically center content
+% credits to: http://tex.stackexchange.com/questions/7219/how-to-vertically-center-two-images-next-to-each-other
+\newcommand*{\vcenteredhbox}[1]{\begingroup
+\setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+
+% icon shortcut
+\newcommand{\icon}[3] { 							
+	\makebox(#2, #2){\textcolor{maincol}{\csname fa#1\endcsname}}
+}	
+
+% icon with text shortcut
+\newcommand{\icontext}[4]{ 						
+	\vcenteredhbox{\icon{#1}{#2}{#3}}  \hspace{2pt}  \parbox{0.9\mpwidth}{\textcolor{#4}{#3}}
+}
+
+% icon with website url
+\newcommand{\iconhref}[5]{ 						
+    \vcenteredhbox{\icon{#1}{#2}{#5}}  \hspace{2pt} \href{#4}{\textcolor{#5}{#3}}
+}
+
+% icon with email link
+\newcommand{\iconemail}[5]{ 						
+    \vcenteredhbox{\icon{#1}{#2}{#5}}  \hspace{2pt} \href{mailto:#4}{\textcolor{#5}{#3}}
+}
+
+%----------------------------------------------------------------------------------------
+%	PAGE LAYOUT  DEFINITIONS
+%----------------------------------------------------------------------------------------
+
+% page outer frames (debug-only)
+% \usepackage{showframe}		
+
+% we use paracol to display breakable two columns
+\usepackage{paracol}
+
+% define page styles using geometry
+\usepackage[a4paper]{geometry}
+
+% remove all possible margins
+\geometry{top=1cm, bottom=1cm, left=1cm, right=1cm}
+
+\usepackage{fancyhdr}
+\pagestyle{empty}
+
+% space between header and content
+% \setlength{\headheight}{0pt}
+
+% indentation is zero
+\setlength{\parindent}{0mm}
+
+%----------------------------------------------------------------------------------------
+%	TABLE /ARRAY DEFINITIONS
+%---------------------------------------------------------------------------------------- 
+
+% extended aligning of tabular cells
+\usepackage{array}
+
+% custom column right-align with fixed width
+% use like p{size} but via x{size}
+\newcolumntype{x}[1]{%
+>{\raggedleft\hspace{0pt}}p{#1}}%
+
+
+%----------------------------------------------------------------------------------------
+%	GRAPHICS DEFINITIONS
+%---------------------------------------------------------------------------------------- 
+
+%for header image
+\usepackage{graphicx}
+
+% use this for floating figures
+% \usepackage{wrapfig}
+% \usepackage{float}
+% \floatstyle{boxed} 
+% \restylefloat{figure}
+
+%for drawing graphics		
+\usepackage{tikz}				
+\usetikzlibrary{shapes, backgrounds,mindmap, trees}
+
+%----------------------------------------------------------------------------------------
+%	Color DEFINITIONS
+%---------------------------------------------------------------------------------------- 
+\usepackage{transparent}
+\usepackage{color}
+
+% primary color
+\definecolor{maincol}{RGB} { 0, 87, 194 }   %{ 225, 0, 0 }
+
+% accent color, secondary
+% \definecolor{accentcol}{RGB}{ 250, 150, 10 }
+
+% dark color
+\definecolor{darkcol}{RGB}{ 70, 70, 70 }
+
+% light color
+\definecolor{lightcol}{RGB}{245,245,245}
+
+
+% Package for links, must be the last package used
+\usepackage[hidelinks]{hyperref}
+
+% returns minipage width minus two times \fboxsep
+% to keep padding included in width calculations
+% can also be used for other boxes / environments
+\newcommand{\mpwidth}{\linewidth-\fboxsep-\fboxsep}
+	
+
+
+%============================================================================%
+%
+%	CV COMMANDS
+%
+%============================================================================%
+
+%----------------------------------------------------------------------------------------
+%	 CV LIST
+%----------------------------------------------------------------------------------------
+
+% renders a standard latex list but abstracts away the environment definition (begin/end)
+\newcommand{\cvlist}[1] {
+	\begin{itemize}{#1}\end{itemize}
+}
+
+%----------------------------------------------------------------------------------------
+%	 CV TEXT
+%----------------------------------------------------------------------------------------
+
+% base class to wrap any text based stuff here. Renders like a paragraph.
+% Allows complex commands to be passed, too.
+% param 1: *any
+\newcommand{\cvtext}[1] {
+	\begin{tabular*}{1\mpwidth}{p{0.98\mpwidth}}
+		\parbox{1\mpwidth}{#1}
+	\end{tabular*}
+}
+
+%----------------------------------------------------------------------------------------
+%	CV SECTION
+%----------------------------------------------------------------------------------------
+
+% Renders a a CV section headline with a nice underline in main color.
+% param 1: section title
+\newcommand{\cvsection}[1] {
+	\vspace{14pt}
+	\cvtext{
+		\textbf{\LARGE{\textcolor{darkcol}{\uppercase{#1}}}}\\[-4pt]
+		\textcolor{maincol}{ \rule{0.1\textwidth}{2pt} } \\
+	}
+}
+
+%----------------------------------------------------------------------------------------
+%	META SKILL
+%----------------------------------------------------------------------------------------
+
+% Renders a progress-bar to indicate a certain skill in percent.
+% param 1: name of the skill / tech / etc.
+% param 2: level (for example in years)
+% param 3: percent, values range from 0 to 1
+\newcommand{\cvskill}[3] {
+	\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
+ 		\textcolor{black}{\textbf{#1}} & \textcolor{maincol}{#2}\\
+	\end{tabular*}%
+	
+	\hspace{4pt}
+	\begin{tikzpicture}[scale=1,rounded corners=2pt,very thin]
+		\fill [lightcol] (0,0) rectangle (1\mpwidth, 0.15);
+		\fill [maincol] (0,0) rectangle (#3\mpwidth, 0.15);
+  	\end{tikzpicture}%
+}
+
+
+%----------------------------------------------------------------------------------------
+%	 CV EVENT
+%----------------------------------------------------------------------------------------
+
+% Renders a table and a paragraph (cvtext) wrapped in a parbox (to ensure minimum content
+% is glued together when a pagebreak appears).
+% Additional Information can be passed in text or list form (or other environments).
+% the work you did
+% param 1: time-frame i.e. Sep 14 - Jan 15 etc.
+% param 2:	 event name (job position etc.)
+% param 3: Customer, Employer, Industry
+% param 4: Short description
+% param 5: work done (optional)
+% param 6: achievements (optional)
+% param 7: technologies (optional)
+\newcommand{\cvevent}[7] {
+	
+	% we wrap this part in a parbox, so title and description are not separated on a pagebreak
+	% if you need more control on page breaks, remove the parbox
+	\parbox{\mpwidth}{
+		\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
+	 		\textcolor{black}{\textbf{#2}} & \colorbox{maincol}{\makebox[0.25\mpwidth]{\textcolor{white}{#1}}} \\
+			\textcolor{maincol}{\textbf{#3}} & \\
+		\end{tabular*}\\[8pt]
+	
+		\ifthenelse{\isempty{#4}}{}{
+			\cvtext{#4}\\
+		}
+	}
+
+	\ifthenelse{\isempty{#5}}{}{
+		\vspace{9pt}
+		{#5}
+	}
+
+	\ifthenelse{\isempty{#6}}{}{
+		\vspace{9pt}
+		\cvtext{\textbf{Projects:}}\\
+		{#6}
+	}
+
+	\ifthenelse{\isempty{#7}}{}{
+		\vspace{9pt}
+		\cvtext{\textbf{"Technologies" used:}}\\
+		{#7}
+	}
+	\vspace{14pt}
+}
+
+%----------------------------------------------------------------------------------------
+%	 CV META EVENT
+%----------------------------------------------------------------------------------------
+
+% Renders a CV event on the sidebar
+% param 1: title
+% param 2: subtitle (optional)
+% param 3: customer, employer, etc,. (optional)
+% param 4: info text (optional)
+\newcommand{\cvmetaevent}[4] {
+	\textcolor{maincol} {\cvtext{\textbf{\begin{flushleft}#1\end{flushleft}}}}
+
+	\ifthenelse{\isempty{#2}}{}{
+	\textcolor{darkcol} {\cvtext{\textbf{#2}} }
+	}
+
+	\ifthenelse{\isempty{#3}}{}{
+		\cvtext{{ \textcolor{darkcol} {#3} }}\\
+	}
+
+	\cvtext{#4}\\[14pt]
+}
+
+%---------------------------------------------------------------------------------------
+%	QR CODE
+%----------------------------------------------------------------------------------------
+
+% Renders a qrcode image (centered, relative to the parentwidth)
+% param 1: percent width, from 0 to 1
+%\newcommand{%\cvqrcode}[1] {
+%	\begin{center}
+%		\includegraphics[width={#1}\mpwidth]{qrcode}
+%	\end{center}
+%}
+
+
+%============================================================================%
+%
+%
+%
+%	DOCUMENT CONTENT
+%
+%
+%
+%============================================================================%
+\begin{document}
+\columnratio{0.31}
+\setlength{\columnsep}{2.2em}
+\setlength{\columnseprule}{4pt}
+\colseprulecolor{lightcol}
+\begin{paracol}{2}
+\begin{leftcolumn}
+%---------------------------------------------------------------------------------------
+%	META CURRENTLY READING
+%----------------------------------------------------------------------------------------
+%\includegraphics[width=\linewidth]{./cover.jpg}	%trimming relative to image size
+
+
+%---------------------------------------------------------------------------------------
+%	META SKILLS
+%----------------------------------------------------------------------------------------
+
+\cvsection{CONTACT} \\
+
+\icontext{MapMarker}{12}{Milwaukee WI,\\12345 Somewhere}{black}\\[6pt]
+\icontext{MobilePhone}{12}{920-277-8465}{black}\\[6pt]
+\iconemail{Envelope}{12}{mbmcmullen27@gmail.com}{mbmcmullen27@gmail.com}{black}\\[6pt]
+\iconhref{GitHub}{12}{@mbmcmullen27}{https://github.com/mbmcmullen27}{black}\\[6pt]
+
+
+\cvsection{LANGUAGES}
+
+\cvskill{JavaScript} {5+ yrs} {0.95} \\[-2pt]
+
+\cvskill{Regex} {5+ yrs} {0.95} \\[-2pt]
+
+\cvskill{C} {3+ yrs} {0.77} \\[-2pt]
+
+\cvskill{Java} {3+ yrs} {0.83} \\[-2pt]
+
+\cvskill{go} {1+ yrs} {0.62} \\[-2pt]
+
+\cvskill{Bash} {1+ yrs} {0.7} \\[-2pt]
+
+\cvskill{MANY MORE} {SOON} {1} \\[-2pt]
+
+\cvskill{Terraform} {3+ yrs} {0.68} \\[-2pt]
+
+\cvskill{Python} {5+ yrs} {0.8} \\[-2pt]
+
+\cvskill{git} {3+ yrs} {0.9} \\[-2pt]
+
+\cvskill{Open Source Tools} {3+ yrs} {1} \\[-2pt]
+
+
+%\vfill\null
+	
+
+%%\cvqrcode{0.7}
+
+%---------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+%\newpage
+\cvsection{EDUCATION}
+
+\cvmetaevent
+{2014 - 2019}
+{B. Computer Science}
+{University of Wisconsin \\Milwaukee}
+{data structures: java\\
+ operating systems: c\\
+ server side programming: JavaScript\\}
+
+
+%\cvqrcode{0.7}
+
+%---------------------------------------------------------------------------------------
+%	HOBBIES
+%----------------------------------------------------------------------------------------
+\cvsection{Hobbies}
+
+\cvmetaevent
+{RaspberryPi}
+{}
+{}
+{ - Clustering them,\\  - putting Kubernetes on them,\\  - putting hats on them}
+
+\cvmetaevent
+{Reading}
+{}
+{}
+{Art of WebAssembly, Crafting Interpreters, Guide to Ncurses}
+
+\cvmetaevent
+{Online Classes}
+{}
+{}
+{Kubernetes CKA prep course}
+
+\end{leftcolumn}
+\begin{rightcolumn}
+%---------------------------------------------------------------------------------------
+%	TITLE  HEADER
+%----------------------------------------------------------------------------------------
+\fcolorbox{white}{darkcol}{\begin{minipage}[c][3.5cm][c]{1\mpwidth}
+	\begin {center}
+		\HUGE{ \textbf{ \textcolor{white}{ \uppercase{ Michael McMullen } } } } \\[-24pt]
+		\textcolor{white}{ \rule{0.1\textwidth}{1.25pt} } \\[4pt]
+		\large{ \textcolor{white} {DevOps Engineer++} }
+	\end {center}
+\end{minipage}} \\[14pt]
+\vspace{-12pt}
+
+%---------------------------------------------------------------------------------------
+%	PROFILE
+%----------------------------------------------------------------------------------------
+
+\cvsection{PROFILE}
+
+\cvtext{DevOps engineer with an interest in code structure, and execution, and code execution structure. \\
+
+Reading, writing, learning languages. \\
+Syntax and Strangeness.\\ 
+I love software and I desparately need to know how it works. \\
+Looking for excuses to scan, tokenize and parse. \\
+Computering by day and also by night too...
+
+}
+
+%---------------------------------------------------------------------------------------
+%	WORK EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\cvsection{WORK EXPERIENCE}
+
+\cvevent
+	{Jun 2020 - NOW}
+	{DevOps Engineer, Alegeus}
+	{Research and Development}
+	{
+		Containerization, Optimization, Automation, Awesome. \\
+		Migrat
+	}
+	{\cvlist{
+		\item Middletier api management, deployment, and architecture consult
+		\item Kubernetes cluster creation, administration, and Maintenance
+		\item Cloud resource creation and management
+		\item Monitor and maintain existing infrastructure
+	}}
+	{\cvlist {
+		\item Migrate mannually deployed Azure cloud resources to Terraform managed infrastructure as code
+		\item Converted scrum teams manual deployment process to git triggered Azure DevOps pipelines
+		\item Cosmosdb (Mongodb)
+		\item Azure DevOps Pipelines for continuous deployments
+	}}
+	{\cvlist{
+		\item Terraform for resource creation/deletion
+		\item Git via Azure DevOps, Artifact feeds, and Pipelines for automated builds
+		\item JavaScript, Python, Bash, docker, Azure logic apps, whatever is around for miscelaneous tasks
+	}}
+
+
+\cvevent
+	{May 19 - Jun 20}
+	{Sustaining Engineer, Alegeus}
+	{Tier III Support}
+	{Responsible for -> make ticket go away}
+	{\cvlist{
+		\item Research and issue in legacy dotnet web application and REST api
+		\item Oncall support  
+		\item Monitor system health and availability
+		\item Extend tools and automate process (extra credit)
+	}}
+	{\cvlist {
+		\item Circulated SQL scripts to generate common regex for specific clients for common file manipulation tasks performed by support staff
+		\item Developed small vscode extension for common SQL tasks\\ \url{https://https://github.com/mbmcmullen27/AdsSqlCopy}
+		\item JavaScript for fun
+	}}
+	{\cvlist{
+		\item Regex for text manipulation
+		\item SQL for data manipulation
+		\item JavaScript for fun
+	}}
+
+\end{rightcolumn}
+\end{paracol}
+\end{document}
