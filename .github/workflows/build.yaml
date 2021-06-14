@@ -17,6 +17,6 @@
             path: resume.pdf
         - uses: ncipollo/release-action@v1
           with:
-            artifacts: "PDF"
+            artifacts: "PDF.zip"
             bodyFile: "resume.pdf"
             token: ${{ secrets.GITHUB_TOKEN }}
