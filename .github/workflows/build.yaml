@@ -1,5 +1,8 @@
   name: Github Action for LaTeX
-  on: [push]
+  on:   
+    push:
+      tags:
+      - '*'
   jobs:
     compile:
       runs-on: ubuntu-latest
