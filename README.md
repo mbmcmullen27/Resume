@@ -1,6 +1,6 @@
 # Resume
 
-If I gave you my resume, this is what makes it!
+If I gave you my resume, this is what makes it! It's a latex document I modified to my liking. See releases to download the final product, or compile using latex:
 
 ```bash
 # compile? with pdflatex and view with mupdf
@@ -8,9 +8,8 @@ pdflatex resume.tex
 mupdf resume.pdf  
 ```
 
-get latex
-
 ```bash
+# get latex
 pacman -S texlive-most
 ````
 

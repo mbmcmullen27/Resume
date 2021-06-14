@@ -201,13 +201,13 @@
 % Renders a a CV section headline with a nice underline in main color.
 % param 1: section title
 \newcommand{\cvsection}[1] {
-	\vspace{10pt}  % down from 14 originially
+	%\vspace{1pt}  % down from 14 originially
 	\cvtext{
-		\textbf{\LARGE{\textcolor{darkcol}{\uppercase{#1}}}}\\[-3pt]
+		\textbf{\LARGE{\textcolor{darkcol}{\uppercase{#1}}}}\\[-3pt] % from -3
 		\textcolor{maincol}{ \rule{0.1\textwidth}{2pt} } \\
 	}
+	\vspace{-8pt}
 }
-
 %----------------------------------------------------------------------------------------
 %	META SKILL
 %----------------------------------------------------------------------------------------
@@ -217,11 +217,12 @@
 % param 2: level (for example in years)
 % param 3: percent, values range from 0 to 1
 \newcommand{\cvskill}[3] {
+	\vspace{-5pt}
 	\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
  		\textcolor{black}{\textbf{#1}} & \textcolor{maincol}{#2}\\
 	\end{tabular*}%
 	
-	\hspace{1pt} % down from 4?
+	\hspace{4pt}
 	\begin{tikzpicture}[scale=1,rounded corners=2pt,very thin]
 		\fill [lightcol] (0,0) rectangle (1\mpwidth, 0.15);
 		\fill [maincol] (0,0) rectangle (#3\mpwidth, 0.15);
@@ -250,7 +251,7 @@
 	% if you need more control on page breaks, remove the parbox
 	\parbox{\mpwidth}{
 		\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
-	 		\textcolor{black}{\textbf{#2}} & \colorbox{maincol}{\makebox[0.25\mpwidth]{\textcolor{white}{#1}}} \\
+	 		\textcolor{black}{\textbf{#2}} & \colorbox{maincol}{\makebox[0.3\mpwidth]{\textcolor{white}{#1}}} \\
 			\textcolor{maincol}{\textbf{#3}} & \\
 		\end{tabular*}\\[8pt]
 	
@@ -260,22 +261,23 @@
 	}
 
 	\ifthenelse{\isempty{#5}}{}{
-		\vspace{9pt}
+		\vspace{2pt} % from 9
 		{#5}
 	}
 
 	\ifthenelse{\isempty{#6}}{}{
-		\vspace{9pt}
+		\vspace{2pt}
 		\cvtext{\textbf{Projects:}}\\
+		\vspace{-10pt}
 		{#6}
 	}
 
 	\ifthenelse{\isempty{#7}}{}{
-		\vspace{9pt}
+		\vspace{2pt}
 		\cvtext{\textbf{"Technologies" used:}}\\
 		{#7}
 	}
-	\vspace{14pt}
+	\vspace{10pt} % from 14
 }
 
 %----------------------------------------------------------------------------------------
@@ -293,10 +295,11 @@
 	\textcolor{darkcol} {\cvtext{\textbf{#2}} }
 	}
 	\ifthenelse{\isempty{#3}}{}{
-		\cvtext{{ \textcolor{darkcol} {#3} }}\\
+		\cvtext{{ \textcolor{darkcol} {#3} }} \\
 	}
 
 	\cvtext{#4}\\[2pt] % from 14
+	\vspace{-10pt}
 }
 
 %============================================================================%
@@ -309,7 +312,7 @@
 %
 %============================================================================%
 \begin{document}
-\columnratio{0.31}
+\columnratio{0.31} % from .31
 \setlength{\columnsep}{2.2em}
 \setlength{\columnseprule}{4pt}
 \colseprulecolor{lightcol}
@@ -327,19 +330,19 @@
 \iconemail{Envelope}{12}{mbmcmullen27@gmail.com}{mbmcmullen27@gmail.com}{black}\\[6pt]
 \iconhref{Github}{12}{@mbmcmullen27}{https://github.com/mbmcmullen27}{black}\\[6pt]
 
-\cvsection{LANGUAGES}
+\cvsection{LANGUAGES} \\
 
 \cvskill{JavaScript} {5+ yrs} {0.95} \\[-2pt]
 
-\cvskill{*Regex} {5+ yrs} {0.95} \\[-2pt]
+\cvskill{Regex *} {5+ yrs} {0.95} \\[-2pt]
 
 \cvskill{C} {5+ yrs} {0.77} \\[-2pt]
 
 \cvskill{Java} {5+ yrs} {0.83} \\[-2pt]
 
-\cvskill{Python} {5+ yrs} {0.6} \\[-2pt]
+\cvskill{Python} {5+ yrs} {0.68} \\[-2pt]
 
-\cvskill{go} {1+ yrs} {0.66} \\[-2pt]
+\cvskill{Go} {1+ yrs} {0.59} \\[-2pt]
 
 \cvskill{Bash} {1+ yrs} {0.85} \\[-2pt]
 
@@ -347,9 +350,9 @@
 
 \cvskill{WebAssembly} {< 1 yr} {0.5} \\[-2pt]
 
-\cvskill{MANY MORE} {SOON} {1} \\[-2pt]
+\cvskill{MANY MORE} {\hspace{-28pt}VERY SOON} {1} \\[-2pt]
 
-* I know you're probably thinking \\"Regex? That's not a programming language!" I included it anyway as a formal grammar because I think its an important skill. \\
+\textcolor{darkcol}{* I know you're probably thinking \\"Regex? That's not a programming language!" I included it anyway as a formal grammar because I like it, and I think its an important skill. \\}
 %\vfill\null
 
 %---------------------------------------------------------------------------------------
@@ -358,16 +361,16 @@
 %\newpage
 \cvsection{EDUCATION}
 \cvmetaevent
-{2014 - 2019}
+{\vspace{-10pt}2014 - 2019}
 {B. Computer Science}
-{University of Wisconsin Milwaukee}
+{University of Wisconsin\\Milwaukee}
 {}
-
+\vspace{-10pt}
 %---------------------------------------------------------------------------------------
 %	HOBBIES
 %----------------------------------------------------------------------------------------
-\cvsection{Hobbies}
 
+\cvsection{Hobbies}
 \cvmetaevent
 {RaspberryPi}
 {}
@@ -378,13 +381,17 @@
 {Reading}
 {}
 {}
-{ - Art of WebAssembly\\ - Crafting Interpreters\\ - Guide to Ncurses}
+{
+\iconhref{Link}{5}{Art of WebAssembly}{https://github.com/mbmcmullen27/artOfWasm}{black}\\ 
+\iconhref{Link}{5}{Crafting Interpreters}{https://github.com/mbmcmullen27/lox}{black} \\ 
+\iconhref{Link}{5}{Guide to Ncurses}{https://github.com/mbmcmullen27/ncurses}{black} \\
+}
 
 \cvmetaevent
 {Online Classes}
 {}
 {}
-{Kubernetes CKA prep course}
+{ - Udemy CKA prep course}
 
 \end{leftcolumn}
 \begin{rightcolumn}
@@ -404,72 +411,57 @@
 %	PROFILE
 %----------------------------------------------------------------------------------------
 
-\cvsection{PROFILE}
+%\cvsection{About}
 
-\cvtext{DevOps engineer with an interest in code structure, execution, and execution structure. \\
+\cvtext{\vspace{5pt}DevOps engineer with an unhealthy fascination with code, its structure, and its execution.\\
+
+My personal experience spans a variety of languages and frameworks and I believe strongly in accessibility, interoperability, and compatibility.\\
 
 Reading, writing, learning languages. \\
-Syntax and Strangeness.\\ 
-I love software and I desparately need to know how it works. \\
+Syntax and Strangeness. Deep dives only.\\ 
+I love all software equally and I desparately need to know how it works. \\
 Looking for excuses to scan, tokenize and parse. \\
-Computering by day and also by night too...
-
-}
+Computering by day and also by night too... \\}
 
 %---------------------------------------------------------------------------------------
 %	WORK EXPERIENCE
 %----------------------------------------------------------------------------------------
-
-\cvsection{WORK EXPERIENCE}
-
+\vspace{10pt}
+\cvsection{EXPERIENCE}
+\vspace{10pt}
 \cvevent
-	{Jun 2020 - NOW}
+	{Jun 2020 - PRESENT}
 	{DevOps Engineer, Alegeus}
-	{Research and Development}
-	{
-		Containerization, Optimization, Automation, Awesome. \\
-		Successfully Migrated dotnet Middletier api application to containerized cloud kubernetes cluster
-	}
+	{Research and Development\vspace{-15pt}}
+	{\vspace{-15pt}Containerization... Optimization... Automation... Awesome.\vspace{-15pt}}
 	{\cvlist{
-		\item Middletier api management, deployment, and architecture consult
-		\item Kubernetes cluster creation, administration, and Maintenance
-		\item Cloud resource creation and management
+		\item Middle tier api management, deployment, and architecture consult
+		\item Kubernetes cluster creation, administration, and maintenance
+		\item Azure Cloud resource creation and management
 		\item Monitor and maintain existing infrastructure
 	}}
 	{\cvlist {
-		\item Migrate mannually deployed Azure cloud resources to Terraform managed infrastructure as code
-		\item Converted scrum teams manual deployment process to git triggered Azure DevOps pipelines
-		\item Cosmosdb (Mongodb)
-		\item Azure DevOps Pipelines for continuous deployments
+		\item Migrated mannually developed and deployed Azure Cloud resources and dotnet middle tier api, inherited from a vendor, to Terraform managed infrastructure as code while maintaining live production architecture.
+		\item Converted the scrum team's manual deployment process to git flow with Azure DevOps pipelines
+		\item Wrote JavaScript and Bash utilities to bridge the gap between Terraform and Azure cli during the Terraform migration
 	}}
-	{\cvlist{
-		\item Terraform for resource creation/deletion
-		\item Git via Azure DevOps, Artifact feeds, and Pipelines for automated builds
-		\item JavaScript, Python, Bash, docker, Azure logic apps, whatever is around for miscelaneous tasks
-	}}
+	{}
 
 
 \cvevent
-	{May 19 - Jun 20}
+	{May 2019 - Jun 2020}
 	{Sustaining Engineer, Alegeus}
 	{Tier III Support}
-	{Responsible for -> make ticket go away}
+	{On call support engineer for consumer directed healthcare administration application written in dotnet. Responsible for addressing defects and for -> make ticket go away.}
 	{\cvlist{
-		\item Research and issue in legacy dotnet web application and REST api
-		\item Oncall support  
+		\item Research and document defects in legacy dotnet web application
+		\item SQL server database cleanup post defect resolutions
 		\item Monitor system health and availability
-		\item Extend tools and automate process (extra credit)
+		\item (Extra Credit) Circulated SQL scripts to generate common regular expressions for file manipulation tasks regularly performed by support staff
+		\item (Extra Credit) Developed and maintained a small vscode extension for common SQL tasks, in an effort to get engineers to stop using SSMS and notepad++\\ \url{https://github.com/mbmcmullen27/AdsSqlCopy}
 	}}
-	{\cvlist {
-		\item Circulated SQL scripts to generate common regex for specific clients for common file manipulation tasks performed by support staff
-		\item Developed small vscode extension for common SQL tasks\\ \url{https://https://github.com/mbmcmullen27/AdsSqlCopy}
-		\item JavaScript for fun
-	}}
-	{\cvlist{
-		\item Regex for text manipulation
-		\item SQL for data manipulation
-		\item JavaScript for fun
-	}}
+	{}
+	{}
 
 \end{rightcolumn}
 \end{paracol}
