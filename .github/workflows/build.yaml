@@ -15,8 +15,9 @@
           with:
             name: PDF
             path: resume.pdf
+        - run: echo "\# automated release! \nworkflow did it all on its own!" >> release.md
         - uses: ncipollo/release-action@v1
           with:
-            artifacts: "PDF.zip"
-            bodyFile: "resume.pdf"
+            artifacts: "resume.pdf"
+            bodyFile: "release.md"
             token: ${{ secrets.GITHUB_TOKEN }}
