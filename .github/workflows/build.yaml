@@ -1,5 +1,8 @@
   name: Github Action for LaTeX
-  on: [push]
+  on: 
+    push:
+      tags:
+      - '*'
   jobs:
     compile:
       runs-on: ubuntu-latest
@@ -12,3 +15,8 @@
           with:
             name: PDF
             path: resume.pdf
+        - uses: ncipollo/release-action@v1
+          with:
+            artifacts: "resume.pdf"
+            bodyFile: "resume.pdf"
+            token: ${{ secrets.GITHUB_TOKEN }}
