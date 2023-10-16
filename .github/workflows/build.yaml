@@ -18,8 +18,8 @@
             name: PDF
             path: resume.pdf
         - run: |
-          echo "event name: ${{ github.event_name }}"
-          echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
+            echo "event name: ${{ github.event_name }}"
+            echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
         # - uses: ncipollo/release-action@v1
         #   if: 
         #   with:
