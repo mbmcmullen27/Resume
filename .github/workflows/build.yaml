@@ -3,6 +3,8 @@
     push:
       tags:
       - '*'
+    workflow_disptach:
+
   jobs:
     compile:
       runs-on: ubuntu-latest
@@ -15,9 +17,12 @@
           with:
             name: PDF
             path: resume.pdf
-        - run: echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
-        - uses: ncipollo/release-action@v1
-          with:
-            artifacts: "resume.pdf"
-            bodyFile: "release.md"
-            token: ${{ secrets.GITHUB_TOKEN }}
+        - run: |
+          echo "event name: ${{ github.event_name }}"
+          echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
+        # - uses: ncipollo/release-action@v1
+        #   if: 
+        #   with:
+        #     artifacts: "resume.pdf"
+        #     bodyFile: "release.md"
+        #     token: ${{ secrets.GITHUB_TOKEN }}
