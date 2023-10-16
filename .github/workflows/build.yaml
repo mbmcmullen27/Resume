@@ -22,7 +22,7 @@
             echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
             
         - if: ${{ github.event_name == 'push' }}
-          run: "Triggered by a push"
+          run: echo "Triggered by a pushed tag"
         # - uses: ncipollo/release-action@v1
         #   if: 
         #   with:
