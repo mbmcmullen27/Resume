@@ -3,7 +3,7 @@
     push:
       tags:
       - '*'
-    workflow_disptach:
+    workflow_dispatch:
 
   jobs:
     compile:
