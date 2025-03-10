@@ -1,3 +1,4 @@
+% !TEX TS-program = lualatex
 %============================================================================%
 %
 %	DOCUMENT DEFINITION
@@ -12,9 +13,9 @@
 %	ENCODING
 %----------------------------------------------------------------------------------------
 
-% we use utf8 since we want to build from any machine
+% % we use utf8 since we want to build from any machine
 \usepackage[utf8]{inputenc}		
-
+\usepackage{fontspec}
 %----------------------------------------------------------------------------------------
 %	LOGIC
 %----------------------------------------------------------------------------------------
@@ -28,15 +29,15 @@
 
 % some tex-live fonts - choose your own
 
-%\usepackage[defaultsans]{droidsans}
+% \usepackage[defaultsans]{droidsans}
 %\usepackage[default]{comfortaa}
 %\usepackage{cmbright}
-%\usepackage[default]{raleway}
+\usepackage[default]{raleway}
 %\usepackage{fetamont}
 %\usepackage{quattrocento}
-%\usepackage[default]{gillius}     % gillius or raleway IWONA
+% \usepackage[default]{gillius}     % gillius or raleway IWONA
 %\usepackage[light,math]{iwona}
-%\usepackage[thin]{roboto} 
+% \usepackage[thin]{roboto} 
 
 % set font default
 \renewcommand*\familydefault{\sfdefault} 	
@@ -158,7 +159,7 @@
 
 
 % Package for links, must be the last package used
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
 
 % returns minipage width minus two times \fboxsep
 % to keep padding included in width calculations
@@ -326,7 +327,7 @@
 
 \cvsection{CONTACT} \\
 
-\icontext{MapMarker}{12}{Milwaukee WI,\\12345 Somewhere}{black}\\[6pt]
+\icontext{MapMarker}{12}{Milwaukee WI,\\12345 Somewhere St.}{black}\\[6pt]
 \icontext{MobilePhone}{12}{920-277-8465}{black}\\[6pt]
 \iconemail{Envelope}{12}{mbmcmullen27@gmail.com}{mbmcmullen27@gmail.com}{black}\\[6pt]
 \iconhref{Github}{12}{@mbmcmullen27}{https://github.com/mbmcmullen27}{black}\\[6pt]
@@ -339,9 +340,10 @@
 
 \cvskill{C} {5+ yrs} {0.77} \\[-2pt]
 
-\cvskill{Java} {4+ yrs} {0.83} \\[-2pt]
+\cvskill{Python} {5+ yrs} {0.75} \\[-2pt]
 
-\cvskill{Python} {5+ yrs} {0.68} \\[-2pt]
+\cvskill{Java} {4+ yrs} {0.68} \\[-2pt]
+
 
 \cvskill{Go} {1+ yrs} {0.59} \\[-2pt]
 
@@ -400,7 +402,7 @@
 %	TITLE  HEADER
 %----------------------------------------------------------------------------------------
 
-\iconhref{Link}{5}{More than a resume! View source: https://github.com/mbmcmullen27/Resume}{https://github.com/mbmcmullen27/Resume}{black} \\
+\iconhref{Link}{5}{\textcolor{black}{More than a resume! View source:} https://github.com/mbmcmullen27/Resume}{https://github.com/mbmcmullen27/Resume}{blue} \\
 
 \fcolorbox{white}{darkcol}{\begin{minipage}[c][3cm][c]{1\mpwidth}
 	\begin {center}
@@ -419,14 +421,13 @@
 
 \cvtext{\vspace{5pt}DevOps engineer with an unhealthy fascination with code and its structure.\\
 
-My personal experience spans a variety of languages and frameworks and I believe strongly in accessibility, interoperability, and compatibility... \\
-Therefore, Kubernetes at all costs. The easy way or the (more fun) hard way. In the cloud, in my home, on my desk. No nodes left behind. That's a promise.\\
+My personal experience spans a variety of languages and frameworks and I believe strongly in accessibility, interoperability, and compatibility. I am an advocate for Developer experience, enablement, and productivity. I want to work in an Engineering focused organization that understands the importance of modernizing the tech stack... \\
+
+Therefore, Kubernetes at all costs. The easy way or the hard way. In the cloud, in my home, on my desk. No nodes left behind.\\
 
 Reading, writing, learning, languages. \\
 Syntax and Strangeness. Deep dives only.\\ 
-Automation, for automation's sake! \\
-Looking for excuses to scan, tokenize and parse. \\
-Computering by day and also by night too... \\}
+Automation, for automation's sake! \\}
 
 %---------------------------------------------------------------------------------------
 %	WORK EXPERIENCE
@@ -437,24 +438,27 @@ Computering by day and also by night too... \\}
 
 \cvevent
 	{Aug 2021 - PRESENT}
-	{DevOps Engineer, Boxboat an IBM company}
+	{DevOps Engineer / Solutions Architect, Boxboat an IBM company}
 	{Consultation \& Implementation}
-	{Busy doing all things DevOps, Kubernetes administration, writing terraform, fixing helm charts, integrating with open source tools, and automating myself into ambiguity}
+	{Busy doing all things DevOps and DevEx: Kubernetes administration, writing terraform, fixing helm charts, integrating with open source tools, and automating myself into ambiguity}
 	{\cvlist{
 		\item Advise clients on DevOps best practices and recommend prefered tools
 		\item Implement complex cloud native solutions 
 		\item Researching emergent technology
 		\item Containerizing everything from scary scala apis, to monsterous dotnet monoliths
 		\item Training client teams on how to use gitops and automation tools
-		\item Github and Azure cloud administration
-		\item Lead Github migrations and Actions development
+		\item Github and Azure cloud administration and transformation
+		\item Orchestrating major Github Enterprise migrations
+		\item Github Actions development and training
 	}}
 	{\cvlist {
-		\item {begin{flushleft} Built a helm based Github Actions Runner Controller for easy\end{flushleft}\linebreak Openshift integration: 
-			https://github.com/boxboat-github-practice/github-arc-operator
-		\item Owned, maintained, and managed Boxboat's internal Backstage instance}
-		\item Lead app development for client demos and automation testing: \linebreak
-			https://github.com/boxboat-github-practice/simple-tracker-express-api 
+		\item Lead delivery teams on and offshore. Including Boxboat's first international Developer Experience engagement in the Netherlands.
+		\item Architected large scale Github Actions Runner deployments on EKS for a major financial firm. Servicing thousands of builds per day.
+		\item Built a helm based Github Actions Runner Controller for easy Openshift integration: 
+		\href{https://github.com/boxboat-github-practice/github-arc-operator}{\textcolor{blue}{github-arc-operator}}
+		\item Owned, maintained, managed, and devloped Boxboat's internal Backstage instance
+		\item Lead app development for client demos and automation testing: 
+		\href{https://github.com/boxboat-github-practice/simple-tracker-express-api}{\textcolor{blue}{simple-tracker-express-api}}
 		\item Github Actions and Github Actions and Github Actions and Github Actions
 	}}
 	{}
@@ -488,7 +492,7 @@ Computering by day and also by night too... \\}
 		\item SQL server database cleanup post defect resolutions
 		\item Monitor system health and availability
 		\item (Extra Credit) Circulated SQL scripts to generate common regular expressions for file manipulation tasks regularly performed by support staff
-		\item (Extra Credit) Developed and maintained a small vscode extension for common SQL tasks, in an effort to get engineers to stop using SSMS and notepad++\\ \url{https://github.com/mbmcmullen27/AdsSqlCopy}
+		\item (Extra Credit) Developed and maintained a vscode extension for common SQL tasks, in an effort to get engineers to stop using SSMS and notepad++:\\ \href{https://github.com/mbmcmullen27/AdsSqlCopy}{\textcolor{blue}{AdsSqlCopy}}
 	}}
 	{}
 	{}

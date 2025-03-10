@@ -1,0 +1,28 @@
+name: Devcontainer for CI
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  container:
+    defaults:
+      run:
+        shell: bash
+        working-directory: .devcontainer/
+    runs-on: [ubuntu-latest]
+    steps:    
+    - uses: actions/checkout@v4
+    - name: Docker Build
+      shell: bash
+      run: |
+        docker build . -t ghcr.io/${GITHUB_REPOSITORY,,}/latex:$(date +%Y%m%d.$GITHUB_RUN_NUMBER) -t ghcr.io/${GITHUB_REPOSITORY,,}/latex:latest
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Docker Publish
+      shell: bash
+      run: |
+        docker push -a ghcr.io/${GITHUB_REPOSITORY,,}/latex

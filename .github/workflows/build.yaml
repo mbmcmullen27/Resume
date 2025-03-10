@@ -6,26 +6,43 @@
     workflow_dispatch:
 
   jobs:
-    compile:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: xu-cheng/latex-action@v2
-          with:
-            root_file: resume.tex
-        - uses: actions/upload-artifact@v4
-          with:
-            name: PDF
-            path: resume.pdf
-        - run: |
-            echo "event name: ${{ github.event_name }}"
-            echo "Github action powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
-            
-        - if: ${{ github.event_name == 'push' }}
-          run: echo "Triggered by a pushed tag"
-        # - uses: ncipollo/release-action@v1
-        #   if: 
-        #   with:
-        #     artifacts: "resume.pdf"
-        #     bodyFile: "release.md"
-        #     token: ${{ secrets.GITHUB_TOKEN }}
+name: Compile and Release Resume
+
+permissions:
+  contents: write
+  packages: read
+    
+jobs:
+  latex:
+    defaults:
+      run:
+        shell: bash
+    runs-on: [ubuntu-latest]
+    continue-on-error: true
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/onepagers/latex:latest
+      options: --user 1001
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:  
+    - uses: actions/checkout@v4  
+    - name: compile
+      run: |
+        lualatex -interaction=nonstopmode -synctex=1 -file-line-error src/resume.tex || true
+    - uses: actions/upload-artifact@v4
+      with:
+        name: PDF
+        path: src/resume.pdf
+    - run: |
+        echo "event name: ${{ github.event_name }}"
+        echo "Github Actions powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
+        
+    - if: ${{ github.event_name == 'push' }}
+      run: echo "Triggered by a pushed tag"
+    - uses: ncipollo/release-action@v1
+      if: 
+      with:
+        artifacts: "resume.pdf"
+        bodyFile: "release.md"
+        token: ${{ secrets.GITHUB_TOKEN }}
