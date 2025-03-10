@@ -33,6 +33,7 @@ jobs:
         name: PDF
         path: src/resume.pdf
     - run: |
+        ls -la
         echo "event name: ${{ github.event_name }}"
         echo "Github Actions powered automated release [workflow!](https://github.com/mbmcmullen27/Resume/actions/workflows/build.yaml)" >> release.md
         
