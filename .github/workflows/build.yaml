@@ -18,7 +18,7 @@ jobs:
     runs-on: [ubuntu-latest]
     continue-on-error: true
     container:
-      image: ghcr.io/${{ github.repository_owner }}/onepagers/latex:latest
+      image: ghcr.io/${{ github.repository_owner }}/resume/latex:latest
       options: --user 1001
       credentials:
         username: ${{ github.actor }}
