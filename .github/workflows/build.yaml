@@ -1,12 +1,10 @@
-  name: Github Action for LaTeX
-  on:   
-    push:
-      tags:
-      - '*'
-    workflow_dispatch:
-
-  jobs:
 name: Compile and Release Resume
+on:   
+  push:
+    tags:
+    - '*'
+  workflow_dispatch:
+
 
 permissions:
   contents: write
