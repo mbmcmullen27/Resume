@@ -1,0 +1,59 @@
+DevOps Engineer / Solutions Architect
+Boxboat an IBM company
+Remote
+
+09/2021 - Present
+
+Busy doing all things DevOps and DevEx: Kubernetes administration, terraform development, Developer Portal adoption and development, Backstage plugin implementations and template creation, fixing helm charts, creating helm charts, integrating with open source tools, github migrations, and automating myself into ambiguity
+
+• Advise clients on DevOps best practices and recommend preferred tools
+• Orchestrating major Github Enterprise migrations and building tools to make the experience easy
+• Training client teams on how to use gitops and automation tools
+• Github and Azure cloud administration and transformation
+• Github Actions development and training
+• Internal Developer Portal (Backstage) development and administration
+• Implement complex cloud native solutions in Azure and AWS
+• Continuous learning and researching emergent technology
+• Containerizing everything from scary scala apis, to monsterous dotnet monoliths
+
+Projects:
+• Lead delivery teams on and offshore. Including Boxboat’s first international Developer Experience engagement in the Netherlands.
+• Architected large scale Github Actions Runner deployments on EKS for a major financial firm. Servicing thousands of builds per day.
+• Built a helm based Github Actions Runner Controller for easy Openshift integration: github-arc-operator
+• Owned, maintained, managed, and developed Boxboat’s internal Backstage instance
+• Lead app development for client demos and automation testing
+• Github Actions and Github Actions and Github Actions and Github Actions
+
+---
+
+DevOps Engineer
+Alegeus
+Remote
+
+06/2020 - 08/2021
+
+Research and Development
+Containerization... Optimization... Automation... Awesome.
+• Middle tier api management, deployment, and architecture consult
+• Kubernetes cluster creation, administration, and maintenance
+• Azure Cloud resource creation and management
+• Monitor and maintain existing infrastructure
+
+Projects:
+• Migrated manually developed and deployed Azure Cloud resources and dotnet middle tier api, inherited from a vendor, to Terraform managed infrastructure as code while maintaining live production architecture.
+• Converted the scrum team’s manual deployment process to git flow with Azure DevOps pipelines
+• Wrote JavaScript and Bash utilities to bridge the gap between Terraform and Azure cli during the Terraform migration
+
+---
+Sustaining Engineer
+Alegeus
+Wauwatosa
+
+05/2019 - 06/2020
+
+On call support engineer for consumer directed healthcare administration application written in dotnet. Responsible for addressing defects and for making tickets go away.
+• Research and document defects in legacy dotnet web application
+• SQL server database cleanup post defect resolutions
+• Monitor system health and availability
+• (Extra Credit) Circulated SQL scripts to generate common regular expressions for file manipulation tasks regularly performed by support staff
+• (Extra Credit) Developed and maintained a vscode extension for common SQL tasks, in an effort to get engineers to stop using SSMS and notepad++
